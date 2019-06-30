@@ -33,6 +33,10 @@ public class RegisteredActivity extends BaseActivity {
         rePasswordEditText = findViewById(R.id.re_password);
         submit.setOnClickListener(view -> {
             submit.setEnabled(false);
+            if (!checkError()) {
+                submit.setEnabled(true);
+                return;
+            }
             new Thread(() -> {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
@@ -68,11 +72,9 @@ public class RegisteredActivity extends BaseActivity {
                 String value = charSequence.toString();
                 if (value.length() < 6) {
                     usernameEditText.setError("用户名至少输入 6 位");
-                    submit.setEnabled(false);
                     return;
                 }
                 usernameEditText.setError(null);
-                checkError();
             }
 
             @Override
@@ -91,11 +93,9 @@ public class RegisteredActivity extends BaseActivity {
                 String value = charSequence.toString();
                 if (value.length() < 6) {
                     passwordEditText.setError("密码至少输入 6 位");
-                    submit.setEnabled(false);
                     return;
                 }
                 passwordEditText.setError(null);
-                checkError();
             }
 
             @Override
@@ -114,11 +114,9 @@ public class RegisteredActivity extends BaseActivity {
                 String value = charSequence.toString();
                 if (value.length() < 6) {
                     rePasswordEditText.setError("确认密码至少输入 6 位");
-                    submit.setEnabled(false);
                     return;
                 }
                 rePasswordEditText.setError(null);
-                checkError();
             }
 
             @Override
@@ -128,7 +126,7 @@ public class RegisteredActivity extends BaseActivity {
         });
     }
 
-    private void checkError() {
+    private boolean checkError() {
         if (usernameEditText.getError() == null &&
                 passwordEditText.getError() == null &&
                 rePasswordEditText.getError() == null &&
@@ -136,7 +134,8 @@ public class RegisteredActivity extends BaseActivity {
                 passwordEditText.getText() != null &&
                 rePasswordEditText.getText() != null
         ) {
-            submit.setEnabled(true);
+            return true;
         }
+        return false;
     }
 }

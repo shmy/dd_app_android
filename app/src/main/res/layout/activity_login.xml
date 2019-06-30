@@ -48,7 +48,6 @@
             android:layout_height="50dp"
             android:layout_below="@id/password"
             android:layout_marginTop="20dp"
-            android:enabled="false"
             android:background="#008877"
             android:textColor="#ffffff"
             android:text="立即登录" />
