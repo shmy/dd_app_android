@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ListView
+        android:id="@+id/menu"
+        android:divider="#ffffff"
+        android:dividerHeight="0dp"
+        android:layout_width="100dp"
+        android:choiceMode="singleChoice"
+        android:layout_height="match_parent" />
+
+    <GridView
+        android:id="@+id/menu_container"
+        app:layout_flexGrow="1"
+        app:layout_flexShrink="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:horizontalSpacing="5dp"
+        android:verticalSpacing="5dp"
+        android:numColumns="2"/>
+</com.google.android.flexbox.FlexboxLayout>

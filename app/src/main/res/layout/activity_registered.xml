@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.flexbox.FlexboxLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:clipToPadding="true"
+    android:fitsSystemWindows="true"
+    app:flexDirection="column"
+    tools:context=".activity.LoginActivity">
+
+    <include layout="@layout/appbar_layout" />
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        app:alignItems="center"
+        app:flexDirection="column"
+        app:layout_flexGrow="1"
+        app:layout_flexShrink="1">
+
+        <EditText
+            android:layout_marginTop="100dp"
+            android:id="@+id/username"
+            android:drawableStart="@drawable/ic_baseline_account_box_24px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawablePadding="5dp"
+            android:hint="请输入用户名" />
+
+        <EditText
+            android:id="@+id/password"
+            android:drawableStart="@drawable/ic_baseline_lock_24px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="5dp"
+            android:inputType="textPassword"
+            android:hint="请输入密码" />
+        <EditText
+            android:id="@+id/re_password"
+            android:drawableStart="@drawable/ic_baseline_lock_24px"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username"
+            android:layout_marginTop="20dp"
+            android:drawablePadding="5dp"
+            android:inputType="textPassword"
+            android:hint="请确认密码" />
+        <Button
+            android:id="@+id/submit"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/password"
+            android:layout_marginTop="20dp"
+            android:enabled="false"
+            android:background="#008877"
+            android:textColor="#ffffff"
+            android:text="立即注册" />
+        <Button
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_below="@id/password"
+            android:layout_marginTop="20dp"
+            android:background="#00aaff"
+            android:textColor="#ffffff"
+            android:text="已有账号? 立即登录" />
+    </com.google.android.flexbox.FlexboxLayout>
+</com.google.android.flexbox.FlexboxLayout>

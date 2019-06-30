@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:orientation="vertical"
+        app:flexDirection="column">
+
+        <ImageView
+            android:id="@+id/pic"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:scaleType="center"
+            app:layout_flexGrow="1"
+            app:layout_flexShrink="1" />
+
+        <com.google.android.flexbox.FlexboxLayout
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:alignItems="center"
+            app:flexDirection="column"
+            app:justifyContent="center">
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_flexShrink="1"
+                app:layout_flexGrow="1"
+                android:ellipsize="end"
+                android:textSize="16sp"
+                android:textColor="@android:color/black"
+                android:singleLine="true" />
+
+            <TextView
+                android:id="@+id/actor"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_flexShrink="1"
+                app:layout_flexGrow="1"
+                android:ellipsize="end"
+                android:singleLine="true" />
+
+        </com.google.android.flexbox.FlexboxLayout>
+    </com.google.android.flexbox.FlexboxLayout>
+</LinearLayout>
