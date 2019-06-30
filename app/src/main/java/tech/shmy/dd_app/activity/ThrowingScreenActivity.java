@@ -75,7 +75,7 @@ public class ThrowingScreenActivity extends BaseActivity {
         for (LinkEntityWithSource linkEntityWithSource : linkEntityWithSources) {
             HorizontalScrollView horizontalScrollView = new HorizontalScrollView(this);
             LinearLayout linearLayout = new LinearLayout(this);
-            horizontalScrollView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 90));
+            horizontalScrollView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             for (LinkEntity linkEntity : linkEntityWithSource.links) {
                 MyButton myButton = new MyButton(this);

@@ -30,6 +30,7 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
@@ -258,8 +259,10 @@ public class VideoActivity extends BaseActivity {
                 }
                 linkEntities.add(new LinkEntity(party[0], appendHttp(party[1])));
             }
+            Collections.reverse(linkEntities);
             LinkEntityWithSource linkEntityWithSource = new LinkEntityWithSource(linkEntities, resourceEntity.source);
             linkEntityWithSources.add(linkEntityWithSource);
+
         }
         VideoActivity.this.runOnUiThread(this::run);
     }
@@ -275,7 +278,7 @@ public class VideoActivity extends BaseActivity {
             intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
             pushActivity(intent);
         });
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 80);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         layoutParams.setMargins(20, 20, 20, 20);
         button.setLayoutParams(layoutParams);
         button.setBackgroundColor(Color.parseColor("#008877"));
@@ -285,7 +288,7 @@ public class VideoActivity extends BaseActivity {
         for (LinkEntityWithSource linkEntityWithSource : linkEntityWithSources) {
             HorizontalScrollView horizontalScrollView = new HorizontalScrollView(this);
             LinearLayout linearLayout = new LinearLayout(this);
-            horizontalScrollView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 90));
+            horizontalScrollView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             for (LinkEntity linkEntity : linkEntityWithSource.links) {
                 MyButton myButton = new MyButton(this);
