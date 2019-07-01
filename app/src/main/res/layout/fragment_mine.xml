@@ -38,29 +38,82 @@
 
         </com.google.android.flexbox.FlexboxLayout>
 
-        <LinearLayout
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/subject"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginTop="20dp"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="18sp"
+            app:sLeftTextString="专题大全"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/history"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="18sp"
+            app:sLeftTextString="播放历史"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/group"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="18sp"
+            app:sLeftTextString="加入群组"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/check_update"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="18sp"
+            app:sLeftTextString="检查更新"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/about"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="18sp"
+            app:sLeftTextString="关于我们"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp">
+
             <Button
-                android:layout_marginTop="30dp"
                 android:id="@+id/login"
-                android:background="#008877"
-                android:textColor="#ffffff"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="立即登录" />
+                android:layout_marginTop="30dp"
+                android:background="#008877"
+                android:text="立即登录"
+                android:textColor="#ffffff" />
 
             <Button
                 android:id="@+id/logout"
-                android:background="#008877"
-                android:textColor="#ffffff"
-                android:layout_marginTop="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="退出登录" />
+                android:layout_marginTop="30dp"
+                android:background="#008877"
+                android:text="退出登录"
+                android:textColor="#ffffff" />
         </LinearLayout>
 
     </LinearLayout>

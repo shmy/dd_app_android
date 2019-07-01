@@ -1,6 +1,5 @@
 package tech.shmy.dd_app.fragment;
 
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -26,6 +25,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import tech.shmy.dd_app.R;
 import tech.shmy.dd_app.activity.LoginActivity;
+import tech.shmy.dd_app.activity.WebViewActivity;
 import tech.shmy.dd_app.defs.AfterResponse;
 import tech.shmy.dd_app.defs.BaseFragment;
 import tech.shmy.dd_app.entity.UserEntity;
@@ -126,7 +126,18 @@ public class MineFragment extends BaseFragment {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         pushActivity(intent);
     }
-
+    @OnClick(R.id.subject)
+    void onSubjectClick() {
+        Intent intent = new Intent(getContext(), WebViewActivity.class);
+        intent.putExtra("url", "https://dd.shmy.tech/dd_app/subject");
+        pushActivity(intent);
+    }
+    @OnClick(R.id.group)
+    void onGroupClick() {
+        Intent intent = new Intent(getContext(), WebViewActivity.class);
+        intent.putExtra("url", "https://dd.shmy.tech/dd_app/feedback");
+        pushActivity(intent);
+    }
     @OnClick(R.id.logout)
     void onLogoutClick() {
         new AlertDialog.Builder(getContext())
