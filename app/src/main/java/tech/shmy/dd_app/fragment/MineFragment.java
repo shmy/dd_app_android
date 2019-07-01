@@ -24,6 +24,7 @@ import org.greenrobot.eventbus.ThreadMode;
 import butterknife.BindView;
 import butterknife.OnClick;
 import tech.shmy.dd_app.R;
+import tech.shmy.dd_app.activity.AboutActivity;
 import tech.shmy.dd_app.activity.LoginActivity;
 import tech.shmy.dd_app.activity.WebViewActivity;
 import tech.shmy.dd_app.defs.AfterResponse;
@@ -136,6 +137,11 @@ public class MineFragment extends BaseFragment {
     void onGroupClick() {
         Intent intent = new Intent(getContext(), WebViewActivity.class);
         intent.putExtra("url", "https://dd.shmy.tech/dd_app/feedback");
+        pushActivity(intent);
+    }
+    @OnClick(R.id.about)
+    void onAboutClick() {
+        Intent intent = new Intent(getContext(), AboutActivity.class);
         pushActivity(intent);
     }
     @OnClick(R.id.logout)

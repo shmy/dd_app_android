@@ -71,16 +71,6 @@
             app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
 
         <com.allen.library.SuperTextView
-            android:id="@+id/check_update"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="5dp"
-            app:sLeftTextSize="18sp"
-            app:sLeftTextString="检查更新"
-            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
-
-        <com.allen.library.SuperTextView
             android:id="@+id/about"
             android:layout_width="match_parent"
             android:layout_height="55dp"

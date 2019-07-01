@@ -22,7 +22,8 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activity.WebViewActivity"></activity>
+        <activity android:name=".activity.AboutActivity"></activity>
+        <activity android:name=".activity.WebViewActivity" />
         <activity android:name=".activity.LoginActivity" />
         <activity android:name=".activity.RegisteredActivity" />
         <activity android:name=".activity.SearchActivity" />

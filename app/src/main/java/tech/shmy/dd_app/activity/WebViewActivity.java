@@ -3,6 +3,7 @@ package tech.shmy.dd_app.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -77,6 +78,15 @@ public class WebViewActivity extends BaseActivity {
                 return super.shouldOverrideUrlLoading(view, request);
             }
         });
-        dWebView.loadUrl("https://jd.com");
+        dWebView.loadUrl(url);
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (dWebView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK){//点击返回按钮的时候判断有没有上一页
+            dWebView.goBack(); // goBack()表示返回dWebView的上一页面
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
     }
 }
