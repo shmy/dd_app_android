@@ -46,7 +46,7 @@
             android:layout_marginTop="20dp"
             android:paddingLeft="20dp"
             android:paddingRight="5dp"
-            app:sLeftTextSize="18sp"
+            app:sLeftTextSize="16sp"
             app:sLeftTextString="专题大全"
             app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
 
@@ -56,7 +56,7 @@
             android:layout_height="55dp"
             android:paddingLeft="20dp"
             android:paddingRight="5dp"
-            app:sLeftTextSize="18sp"
+            app:sLeftTextSize="16sp"
             app:sLeftTextString="播放历史"
             app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
 
@@ -66,7 +66,7 @@
             android:layout_height="55dp"
             android:paddingLeft="20dp"
             android:paddingRight="5dp"
-            app:sLeftTextSize="18sp"
+            app:sLeftTextSize="16sp"
             app:sLeftTextString="加入群组"
             app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
 
@@ -76,7 +76,7 @@
             android:layout_height="55dp"
             android:paddingLeft="20dp"
             android:paddingRight="5dp"
-            app:sLeftTextSize="18sp"
+            app:sLeftTextSize="16sp"
             app:sLeftTextString="关于我们"
             app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
 

@@ -6,6 +6,8 @@ public class UpdateEntity {
     public String download_url;
     public String md5 = "";
     public long size = 1;
+    public boolean ignore = false;
+    public boolean forced = false;
     public String release_at;
     public String[] release_notes;
 

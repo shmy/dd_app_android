@@ -73,6 +73,11 @@ dependencies {
 
     implementation 'com.github.lygttpod:SuperTextView:2.2.4'
 
+    implementation 'com.kaopiz:kprogresshud:1.2.0'
+
+    // talkingData
+    implementation files('libs/SaaS_AppAnalytics_Android_SDK_V4.0.29.jar')
+
     //
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

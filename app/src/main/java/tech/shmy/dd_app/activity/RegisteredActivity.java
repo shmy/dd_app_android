@@ -8,6 +8,9 @@ import android.text.TextWatcher;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.tendcloud.tenddata.TCAgent;
+import com.tendcloud.tenddata.TDAccount;
+
 import es.dmoral.toasty.Toasty;
 import tech.shmy.dd_app.R;
 import tech.shmy.dd_app.defs.AfterResponse;
@@ -49,6 +52,7 @@ public class RegisteredActivity extends BaseActivity {
                         return;
                     }
                     Toasty.success(this, "注册成功").show();
+                    TCAgent.onRegister(afterResponse.data.id + "", TDAccount.AccountType.REGISTERED, afterResponse.data.username);
                     Intent intent = new Intent(RegisteredActivity.this, LoginActivity.class);
                     pushActivity(intent);
                     finish();

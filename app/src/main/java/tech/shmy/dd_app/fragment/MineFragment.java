@@ -16,6 +16,8 @@ import androidx.appcompat.app.AlertDialog;
 import com.bumptech.glide.Glide;
 import com.google.android.flexbox.FlexboxLayout;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
+import com.tendcloud.tenddata.TCAgent;
+import com.tendcloud.tenddata.TDAccount;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
@@ -85,6 +87,8 @@ public class MineFragment extends BaseFragment {
                             .transition(withCrossFade())
                             .into(avatar);
                     username.setText(afterResponse.data.username.toUpperCase());
+                    TCAgent.onLogin(afterResponse.data.id + "", TDAccount.AccountType.REGISTERED, afterResponse.data.username);
+
                     refreshLayout.finishRefresh(true);
                 });
             }).start();
@@ -119,6 +123,7 @@ public class MineFragment extends BaseFragment {
             infoContainer.setVisibility(View.VISIBLE);
             logoutButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
+
         }
     }
 
@@ -136,7 +141,7 @@ public class MineFragment extends BaseFragment {
     @OnClick(R.id.group)
     void onGroupClick() {
         Intent intent = new Intent(getContext(), WebViewActivity.class);
-        intent.putExtra("url", "https://dd.shmy.tech/dd_app/feedback");
+        intent.putExtra("url", "https://dd.shmy.tech/dd_app/join_group");
         pushActivity(intent);
     }
     @OnClick(R.id.about)

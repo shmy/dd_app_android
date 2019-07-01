@@ -1,13 +1,15 @@
 package tech.shmy.dd_app.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.widget.TextView;
 
+import com.kaopiz.kprogresshud.KProgressHUD;
+
 import org.lzh.framework.updatepluginlib.UpdateBuilder;
-import org.lzh.framework.updatepluginlib.UpdateConfig;
 import org.lzh.framework.updatepluginlib.base.CheckCallback;
 import org.lzh.framework.updatepluginlib.model.Update;
 
@@ -21,11 +23,20 @@ import tech.shmy.dd_app.defs.BaseActivity;
 public class AboutActivity extends BaseActivity {
     @BindView(R.id.version)
     public TextView versionTextView;
+    private KProgressHUD kProgressHUD;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
+        kProgressHUD = KProgressHUD.create(AboutActivity.this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
+                .setLabel("请稍后")
+                .setDetailsLabel("正在检查更新...")
+                .setCancellable(true)
+                .setAnimationSpeed(2)
+                .setCancellable(false)
+                .setDimAmount(0.5f);
         versionTextView.setText(getVersionNameAndCode(this));
     }
 
@@ -37,7 +48,7 @@ public class AboutActivity extends BaseActivity {
             packageInfo = packageManager.getPackageInfo(context.getPackageName(), 0);
             String versionName = packageInfo.versionName;
             int versionCode = packageInfo.versionCode;
-            result = versionName + "+-" + versionCode;
+            result = "v " + versionName + " +" + versionCode;
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
@@ -49,34 +60,47 @@ public class AboutActivity extends BaseActivity {
         UpdateBuilder.create().setCheckCallback(new CheckCallback() {
             @Override
             public void onCheckStart() {
-                Toasty.info(AboutActivity.this, "检查更新", Toasty.LENGTH_LONG).show();
+                kProgressHUD.show();
             }
 
             @Override
             public void hasUpdate(Update update) {
-
-                Toasty.info(AboutActivity.this, "有更新", Toasty.LENGTH_LONG).show();
+                kProgressHUD.dismiss();
             }
 
             @Override
             public void noUpdate() {
-                Toasty.info(AboutActivity.this, "无更新", Toasty.LENGTH_LONG).show();
+                kProgressHUD.dismiss();
+                Toasty.info(AboutActivity.this, "你使用的已是最新版本", Toasty.LENGTH_LONG).show();
             }
 
             @Override
             public void onCheckError(Throwable t) {
-                Toasty.info(AboutActivity.this, "出现错误", Toasty.LENGTH_LONG).show();
+                kProgressHUD.dismiss();
+                Toasty.warning(AboutActivity.this, "检查更新错误, 请稍后再试", Toasty.LENGTH_LONG).show();
+
             }
 
             @Override
             public void onUserCancel() {
-
             }
 
             @Override
             public void onCheckIgnore(Update update) {
-
             }
         }).check();
     }
+    @OnClick(R.id.feedback)
+    void onFeedBackClick() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("url", "https://dd.shmy.tech/dd_app/feedback");
+        pushActivity(intent);
+    }
+    @OnClick(R.id.complaint)
+    void onComplaintClick() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("url", "https://dd.shmy.tech/dd_app/complaint");
+        pushActivity(intent);
+    }
+
 }

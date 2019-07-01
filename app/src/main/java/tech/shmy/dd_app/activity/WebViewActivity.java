@@ -39,7 +39,7 @@ public class WebViewActivity extends BaseActivity {
         init();
     }
     private void init() {
-        DWebView.setWebContentsDebuggingEnabled(true);
+        DWebView.setWebContentsDebuggingEnabled(false);
         dWebView.getSettings().setJavaScriptEnabled(true);
         dWebView.getSettings().setSavePassword(true);
         dWebView.getSettings().setSaveFormData(true);

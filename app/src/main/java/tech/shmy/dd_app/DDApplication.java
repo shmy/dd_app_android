@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 
 import com.google.gson.Gson;
 import com.tencent.mmkv.MMKV;
+import com.tendcloud.tenddata.TCAgent;
 
 import org.lzh.framework.updatepluginlib.UpdateConfig;
 import org.lzh.framework.updatepluginlib.base.CheckCallback;
@@ -36,8 +37,8 @@ public class DDApplication extends Application {
                         info.setUpdateUrl(updateEntity.download_url);
                         info.setUpdateContent(joinString(updateEntity.release_notes, "\n"));
                         info.setMd5(updateEntity.md5);
-                        info.setIgnore(false);
-                        info.setForced(true);
+                        info.setIgnore(updateEntity.ignore);
+                        info.setForced(updateEntity.forced);
                         return info;
                     }
                 })
@@ -95,8 +96,11 @@ public class DDApplication extends Application {
                     public void onCheckIgnore(Update update) {
 // 检查到有更新时通知到此但是设置了忽略
                     }
-                })
-        ;
+                });
+        TCAgent.LOG_ON = false;
+        TCAgent.init(this);
+        TCAgent.setReportUncaughtExceptions(true);
+        TCAgent.setAntiCheatingEnabled(this, true);
     }
 
     private String joinString(String[] s, String e) {
