@@ -37,9 +37,8 @@ dependencies {
     implementation 'com.jakewharton:butterknife:10.1.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.1.0'
 
-//    implementation 'com.github.niniloveyou:StateButton:v1.0.0'
-
     implementation 'com.tencent:mmkv:1.0.22'
+    implementation 'com.tencent.wcdb:wcdb-android:1.0.5'
 
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     implementation 'com.squareup.retrofit2:converter-gson:2.1.0'
