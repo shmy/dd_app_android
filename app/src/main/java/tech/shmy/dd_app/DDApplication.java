@@ -101,7 +101,9 @@ public class DDApplication extends Application {
         TCAgent.init(this);
         TCAgent.setReportUncaughtExceptions(true);
         TCAgent.setAntiCheatingEnabled(this, true);
+//        HistoryDBManager.ini(getApplicationContext());
     }
+
 
     private String joinString(String[] s, String e) {
         StringBuilder ret = new StringBuilder();

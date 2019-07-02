@@ -1,20 +1,21 @@
 package tech.shmy.dd_app.fragment;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 
+import com.allen.library.SuperTextView;
 import com.bumptech.glide.Glide;
-import com.google.android.flexbox.FlexboxLayout;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.tendcloud.tenddata.TCAgent;
 import com.tendcloud.tenddata.TDAccount;
@@ -25,8 +26,10 @@ import org.greenrobot.eventbus.ThreadMode;
 
 import butterknife.BindView;
 import butterknife.OnClick;
+import es.dmoral.toasty.Toasty;
 import tech.shmy.dd_app.R;
 import tech.shmy.dd_app.activity.AboutActivity;
+import tech.shmy.dd_app.activity.HistoryActivity;
 import tech.shmy.dd_app.activity.LoginActivity;
 import tech.shmy.dd_app.activity.WebViewActivity;
 import tech.shmy.dd_app.defs.AfterResponse;
@@ -49,12 +52,14 @@ public class MineFragment extends BaseFragment {
     Button loginButton;
     @BindView(R.id.logout)
     Button logoutButton;
-    @BindView(R.id.info)
-    FlexboxLayout infoContainer;
-    @BindView(R.id.username)
-    TextView username;
-    @BindView(R.id.avatar)
-    ImageView avatar;
+//    @BindView(R.id.info)
+//    FlexboxLayout infoContainer;
+//    @BindView(R.id.username)
+//    TextView username;
+//    @BindView(R.id.avatar)
+//    ImageView avatar;
+@BindView(R.id.profile)
+    SuperTextView profile;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -85,8 +90,14 @@ public class MineFragment extends BaseFragment {
                             .load("https://avatars2.githubusercontent.com/u/3004225?s=180&v=4")
                             .circleCrop()
                             .transition(withCrossFade())
-                            .into(avatar);
-                    username.setText(afterResponse.data.username.toUpperCase());
+                            .into(new SimpleTarget<Drawable>() {
+                                @Override
+                                public void onResourceReady(@NonNull Drawable resource, @Nullable Transition<? super Drawable> transition) {
+                                    profile.setLeftIcon(resource);
+                                }
+                            });
+
+                    profile.setRightString(afterResponse.data.username.toUpperCase());
                     TCAgent.onLogin(afterResponse.data.id + "", TDAccount.AccountType.REGISTERED, afterResponse.data.username);
 
                     refreshLayout.finishRefresh(true);
@@ -113,14 +124,14 @@ public class MineFragment extends BaseFragment {
         // 未登录
         if (!logged) {
             smartRefreshLayout.setEnableRefresh(false);
-            infoContainer.setVisibility(View.GONE);
+            profile.setVisibility(View.GONE);
             logoutButton.setVisibility(View.GONE);
             loginButton.setVisibility(View.VISIBLE);
 
         } else {
             smartRefreshLayout.setEnableRefresh(true);
             smartRefreshLayout.autoRefresh();
-            infoContainer.setVisibility(View.VISIBLE);
+            profile.setVisibility(View.VISIBLE);
             logoutButton.setVisibility(View.VISIBLE);
             loginButton.setVisibility(View.GONE);
 
@@ -132,6 +143,11 @@ public class MineFragment extends BaseFragment {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         pushActivity(intent);
     }
+//    @OnClick(R.id.history)
+//    void onHistoryClick() {
+//        Intent intent = new Intent(getContext(), HistoryActivity.class);
+//        pushActivity(intent);
+//    }
     @OnClick(R.id.subject)
     void onSubjectClick() {
         Intent intent = new Intent(getContext(), WebViewActivity.class);
@@ -162,7 +178,10 @@ public class MineFragment extends BaseFragment {
                 })
                 .show();
     }
-
+    @OnClick(R.id.profile)
+    public void OnProfileClick() {
+        Toasty.info(getActivity(), "敬请期待", Toasty.LENGTH_LONG).show();
+    }
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserLoggedEvent(UserLoggedEvent event) {
         init();

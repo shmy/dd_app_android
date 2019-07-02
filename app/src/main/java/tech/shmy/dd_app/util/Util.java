@@ -14,7 +14,6 @@ public class Util {
         if (p == null) {
             p = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
         }
-        System.out.println(p);
         p.setMargins(l, t, r, b);
         v.setLayoutParams(p);
     }

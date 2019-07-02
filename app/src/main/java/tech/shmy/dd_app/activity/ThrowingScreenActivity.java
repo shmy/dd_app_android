@@ -158,10 +158,8 @@ public class ThrowingScreenActivity extends BaseActivity {
             ThrowingScreenActivity.this.runOnUiThread(() -> {
                 deviceAdapter.setDeviceList(deviceList);
                 deviceAdapter.notifyDataSetChanged();
-                System.out.println(deviceList);
             });
         }).start();
-//        System.out.println(deviceList);
     }
     private void handlePlay(String uuid) {
         new Thread(() -> {

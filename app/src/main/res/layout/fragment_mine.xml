@@ -15,30 +15,37 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.google.android.flexbox.FlexboxLayout
-            android:id="@+id/info"
+        <!--<com.google.android.flexbox.FlexboxLayout-->
+            <!--android:id="@+id/info"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="100dp"-->
+            <!--android:background="#008877"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:paddingRight="20dp"-->
+            <!--app:alignItems="center"-->
+            <!--app:justifyContent="space_between">-->
+
+            <!--<ImageView-->
+                <!--android:id="@+id/avatar"-->
+                <!--android:layout_width="60dp"-->
+                <!--android:layout_height="60dp" />-->
+
+            <!--<TextView-->
+                <!--android:id="@+id/username"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:textColor="#ffffff" />-->
+
+        <!--</com.google.android.flexbox.FlexboxLayout>-->
+
+        <com.allen.library.SuperTextView
+            android:id="@+id/profile"
+            android:paddingLeft="15dp"
+            android:paddingRight="5dp"
             android:layout_width="match_parent"
             android:layout_height="100dp"
-            android:background="#008877"
-            android:paddingLeft="20dp"
-            android:paddingRight="20dp"
-            app:alignItems="center"
-            app:justifyContent="space_between">
-
-            <ImageView
-                android:id="@+id/avatar"
-                android:layout_width="60dp"
-                android:layout_height="60dp" />
-
-            <TextView
-                android:id="@+id/username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textColor="#ffffff" />
-
-        </com.google.android.flexbox.FlexboxLayout>
-
-
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px"
+            app:sRightTextString="" />
         <com.allen.library.SuperTextView
             android:id="@+id/subject"
             android:layout_width="match_parent"
@@ -50,15 +57,15 @@
             app:sLeftTextString="专题大全"
             app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
 
-        <com.allen.library.SuperTextView
-            android:id="@+id/history"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="5dp"
-            app:sLeftTextSize="16sp"
-            app:sLeftTextString="播放历史"
-            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+        <!--<com.allen.library.SuperTextView-->
+            <!--android:id="@+id/history"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="55dp"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:paddingRight="5dp"-->
+            <!--app:sLeftTextSize="16sp"-->
+            <!--app:sLeftTextString="播放历史"-->
+            <!--app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />-->
 
         <com.allen.library.SuperTextView
             android:id="@+id/group"
