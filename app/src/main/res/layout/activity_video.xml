@@ -8,6 +8,7 @@
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     app:flexDirection="column"
+    android:background="#eeeeee"
     tools:context=".activity.VideoActivity">
 
     <chuangyuan.ycj.videolibrary.widget.VideoPlayerView

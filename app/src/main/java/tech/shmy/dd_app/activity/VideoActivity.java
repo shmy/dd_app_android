@@ -8,11 +8,11 @@ import android.app.PictureInPictureParams;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -52,7 +52,6 @@ import tech.shmy.dd_app.entity.LinkEntityWithSource;
 import tech.shmy.dd_app.entity.ResourceEntity;
 import tech.shmy.dd_app.entity.VideoEntity;
 import tech.shmy.dd_app.event.UserLoggedEvent;
-import tech.shmy.dd_app.service.VideoService;
 import tech.shmy.dd_app.util.HttpClient;
 import tech.shmy.dd_app.util.Util;
 
@@ -314,8 +313,9 @@ public class VideoActivity extends BaseActivity {
             linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             linearLayout.setPadding(10, 0, 10, 0);
             for (LinkEntity linkEntity : linkEntityWithSource.links) {
-                MyButton myButton = new MyButton(this);
+                @SuppressLint("ViewHolder") MyButton myButton = (MyButton) View.inflate(this, R.layout.my_button, null);
                 myButton.setUrl(linkEntity.url);
+//                myButton.setBackground(getResources().getDrawable(R.xml.btn));
                 myButton.setOnClickListener(view -> {
                     onButtonItemClick(linkEntity.url);
                 });

@@ -1,7 +1,9 @@
 package tech.shmy.dd_app.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.HorizontalScrollView;
 import android.widget.LinearLayout;
@@ -78,7 +80,7 @@ public class ThrowingScreenActivity extends BaseActivity {
             horizontalScrollView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
             for (LinkEntity linkEntity : linkEntityWithSource.links) {
-                MyButton myButton = new MyButton(this);
+                @SuppressLint("ViewHolder") MyButton myButton = (MyButton) View.inflate(this, R.layout.my_button, null);
                 myButton.setUrl(linkEntity.url);
                 myButton.setOnClickListener(view -> {
                     onButtonItemClick(linkEntity.url);
