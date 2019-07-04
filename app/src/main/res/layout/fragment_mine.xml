@@ -66,25 +66,15 @@
             app:sLeftTextString="播放历史"
             app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
 
-        <com.allen.library.SuperTextView
-            android:id="@+id/download"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="5dp"
-            app:sLeftTextSize="16sp"
-            app:sLeftTextString="下载管理"
-            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
-
-        <com.allen.library.SuperTextView
-            android:id="@+id/group"
-            android:layout_width="match_parent"
-            android:layout_height="55dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="5dp"
-            app:sLeftTextSize="16sp"
-            app:sLeftTextString="加入群组"
-            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+        <!--<com.allen.library.SuperTextView-->
+            <!--android:id="@+id/download"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="55dp"-->
+            <!--android:paddingLeft="20dp"-->
+            <!--android:paddingRight="5dp"-->
+            <!--app:sLeftTextSize="16sp"-->
+            <!--app:sLeftTextString="下载管理"-->
+            <!--app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />-->
 
         <com.allen.library.SuperTextView
             android:id="@+id/about"
@@ -103,21 +93,23 @@
             android:paddingLeft="20dp"
             android:paddingRight="20dp">
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/login"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:background="#008877"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="立即登录"
                 android:textColor="#ffffff" />
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/logout"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="30dp"
                 android:background="#008877"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:text="退出登录"
                 android:textColor="#ffffff" />
         </LinearLayout>

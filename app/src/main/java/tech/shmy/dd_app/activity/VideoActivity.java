@@ -3,6 +3,7 @@ package tech.shmy.dd_app.activity;
 import androidx.annotation.Nullable;
 import androidx.core.app.ActivityCompat;
 
+import android.annotation.SuppressLint;
 import android.app.PictureInPictureParams;
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -16,6 +17,7 @@ import android.widget.HorizontalScrollView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -285,18 +287,32 @@ public class VideoActivity extends BaseActivity {
     }
 
     private void run() {
-        LinearLayout scrollViewChild = findViewById(R.id.container);
-        scrollViewChild.removeAllViews();
+        ScrollView scrollViewContainer = findViewById(R.id.container);
+        scrollViewContainer.removeAllViews();
         myButtons.clear();
 
-
-        scrollViewChild.addView(getTButton());
-        scrollViewChild.addView(getDButton());
+        @SuppressLint("ViewHolder") LinearLayout scrollViewChild = (LinearLayout) View.inflate(this, R.layout.video_detail, null);
+        TextView nameText = scrollViewChild.findViewById(R.id.name);
+        ImageView tvBtn = scrollViewChild.findViewById(R.id.tv);
+//        ImageView downBtn = scrollViewChild.findViewById(R.id.download);
+        nameText.setText(videoEntity.name);
+        tvBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ThrowingScreenActivity.class);
+            intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
+            pushActivity(intent);
+        });
+//        downBtn.setOnClickListener(view -> {
+//            Intent intent = new Intent(this, PreDownloadActivity.class);
+//            intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
+//            intent.putExtra("name", videoEntity.name);
+//            pushActivity(intent);
+//        });
         for (LinkEntityWithSource linkEntityWithSource : linkEntityWithSources) {
             HorizontalScrollView horizontalScrollView = new HorizontalScrollView(this);
             LinearLayout linearLayout = new LinearLayout(this);
             horizontalScrollView.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
             linearLayout.setLayoutParams(new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            linearLayout.setPadding(10, 0, 10, 0);
             for (LinkEntity linkEntity : linkEntityWithSource.links) {
                 MyButton myButton = new MyButton(this);
                 myButton.setUrl(linkEntity.url);
@@ -316,15 +332,16 @@ public class VideoActivity extends BaseActivity {
             horizontalScrollView.addView(linearLayout);
             scrollViewChild.addView(horizontalScrollView);
         }
-        TextView nameTextView = getTextView("片名: " + videoEntity.name);
+//        TextView nameTextView = getTextView("片名: " + videoEntity.name);
         TextView desTextView = getTextView("简介: " + videoEntity.des);
         TextView directorTextView = getTextView("导演: " + videoEntity.director);
         TextView actorTextView = getTextView("演员: " + videoEntity.actor);
 
-        scrollViewChild.addView(nameTextView);
+//        scrollViewChild.addView(nameTextView);
         scrollViewChild.addView(directorTextView);
         scrollViewChild.addView(actorTextView);
         scrollViewChild.addView(desTextView);
+        scrollViewContainer.addView(scrollViewChild);
         myButtons.get(0).performClick();
     }
 
@@ -359,39 +376,6 @@ public class VideoActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserLoggedEvent(UserLoggedEvent event) {
         smartRefreshLayout.autoRefresh();
-    }
-
-    private Button getTButton() {
-        Button button = new Button(this);
-        button.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ThrowingScreenActivity.class);
-            intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
-            pushActivity(intent);
-        });
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(20, 20, 20, 20);
-        button.setLayoutParams(layoutParams);
-        button.setBackgroundColor(Color.parseColor("#008877"));
-        button.setTextColor(Color.parseColor("#ffffff"));
-        button.setText("投屏到其他设备");
-        return button;
-    }
-
-    private Button getDButton() {
-        Button button = new Button(this);
-        button.setOnClickListener(view -> {
-            Intent intent = new Intent(this, PreDownloadActivity.class);
-            intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
-            intent.putExtra("name", videoEntity.name);
-            pushActivity(intent);
-        });
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(20, 20, 20, 20);
-        button.setLayoutParams(layoutParams);
-        button.setBackgroundColor(Color.parseColor("#008877"));
-        button.setTextColor(Color.parseColor("#ffffff"));
-        button.setText("下载视频");
-        return button;
     }
 
 }

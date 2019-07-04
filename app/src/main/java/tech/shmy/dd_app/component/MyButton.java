@@ -19,6 +19,7 @@ public class MyButton extends AppCompatButton {
         super(context, attrs, defStyleAttr);
     }
 
+
     public void setUrl(String url) {
         this.url = url;
     }
@@ -26,7 +27,5 @@ public class MyButton extends AppCompatButton {
     public String getUrl() {
         return url;
     }
-    //    public MyButton(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-//        super(context, attrs, defStyleAttr, defStyleRes);
-//    }
+
 }

@@ -63,8 +63,8 @@ public class MenuAdapter extends BaseAdapter {
         TextView textView = getTextView();
         textView.setText(menuEntity.name);
         if (menuEntity.id == id) {
-            relativeLayout.setBackgroundColor(Color.parseColor("#ffffff"));
-            textView.setTextColor(Color.parseColor("#ff0000"));
+            textView.setTextColor(Color.parseColor("#008877"));
+            textView.setTextSize(16);
         }
         relativeLayout.addView(textView);
         return relativeLayout;

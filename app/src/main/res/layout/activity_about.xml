@@ -49,38 +49,84 @@
             android:layout_height="wrap_content"
             android:gravity="center_horizontal" />
 
-
-        <Button
+        <com.allen.library.SuperTextView
             android:id="@+id/check"
-            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="#008877"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="检查更新" />
+            android:layout_height="55dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="16sp"
+            app:sLeftTextString="检查更新"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+        <com.allen.library.SuperTextView
+            android:id="@+id/help_center"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="16sp"
+            app:sLeftTextString="帮助中心"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
 
-        <Button
+        <com.allen.library.SuperTextView
             android:id="@+id/feedback"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="#e91e63"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="意见反馈" />
-        <Button
+            android:layout_height="55dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="16sp"
+            app:sLeftTextString="意见反馈"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+        <com.allen.library.SuperTextView
             android:id="@+id/complaint"
-            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:background="#388e3c"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
-            android:text="版权投诉" />
+            android:layout_height="55dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="16sp"
+            app:sLeftTextString="版权投诉"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+        <com.allen.library.SuperTextView
+            android:id="@+id/group"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:paddingLeft="20dp"
+            android:paddingRight="5dp"
+            app:sLeftTextSize="16sp"
+            app:sLeftTextString="加入群组"
+            app:sRightIconRes="@drawable/ic_baseline_keyboard_arrow_right_24px" />
+
+        <!--<Button-->
+            <!--android:id="@+id/check"-->
+            <!--android:layout_marginTop="30dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:background="#008877"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:text="检查更新" />-->
+
+        <!--<Button-->
+            <!--android:id="@+id/feedback"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:background="#e91e63"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:text="意见反馈" />-->
+        <!--<Button-->
+            <!--android:id="@+id/complaint"-->
+            <!--android:layout_marginTop="20dp"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="45dp"-->
+            <!--android:background="#388e3c"-->
+            <!--android:textColor="#ffffff"-->
+            <!--android:layout_marginLeft="20dp"-->
+            <!--android:layout_marginRight="20dp"-->
+            <!--android:text="版权投诉" />-->
 
     </LinearLayout>
 </FrameLayout>

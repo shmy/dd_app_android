@@ -149,23 +149,18 @@ public class MineFragment extends BaseFragment {
         Intent intent = new Intent(getContext(), HistoryActivity.class);
         pushActivity(intent);
     }
-    @OnClick(R.id.download)
-    void onDownloadClick() {
-        Intent intent = new Intent(getContext(), DownloadActivity.class);
-        pushActivity(intent);
-    }
+//    @OnClick(R.id.download)
+//    void onDownloadClick() {
+//        Intent intent = new Intent(getContext(), DownloadActivity.class);
+//        pushActivity(intent);
+//    }
     @OnClick(R.id.subject)
     void onSubjectClick() {
         Intent intent = new Intent(getContext(), WebViewActivity.class);
         intent.putExtra("url", "https://dd.shmy.tech/dd_app/subject");
         pushActivity(intent);
     }
-    @OnClick(R.id.group)
-    void onGroupClick() {
-        Intent intent = new Intent(getContext(), WebViewActivity.class);
-        intent.putExtra("url", "https://dd.shmy.tech/dd_app/join_group");
-        pushActivity(intent);
-    }
+
     @OnClick(R.id.about)
     void onAboutClick() {
         Intent intent = new Intent(getContext(), AboutActivity.class);

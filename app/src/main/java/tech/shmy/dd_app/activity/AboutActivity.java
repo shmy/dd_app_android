@@ -90,6 +90,18 @@ public class AboutActivity extends BaseActivity {
             }
         }).check();
     }
+    @OnClick(R.id.group)
+    void onGruopClick() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("url", "https://dd.shmy.tech/dd_app/join_group");
+        pushActivity(intent);
+    }
+    @OnClick(R.id.help_center)
+    void onHelpCenterClick() {
+        Intent intent = new Intent(this, WebViewActivity.class);
+        intent.putExtra("url", "https://dd.shmy.tech/dd_app/help_center");
+        pushActivity(intent);
+    }
     @OnClick(R.id.feedback)
     void onFeedBackClick() {
         Intent intent = new Intent(this, WebViewActivity.class);

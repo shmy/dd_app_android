@@ -50,6 +50,8 @@
             android:layout_marginTop="20dp"
             android:background="#008877"
             android:textColor="#ffffff"
+            android:foreground="?android:attr/selectableItemBackground"
+
             android:text="立即登录" />
         <Button
             android:id="@+id/registered"
@@ -59,6 +61,8 @@
             android:layout_marginTop="20dp"
             android:background="#00aaff"
             android:textColor="#ffffff"
+            android:foreground="?android:attr/selectableItemBackground"
+
             android:text="还没有账号? 立即注册" />
     </com.google.android.flexbox.FlexboxLayout>
 </com.google.android.flexbox.FlexboxLayout>
