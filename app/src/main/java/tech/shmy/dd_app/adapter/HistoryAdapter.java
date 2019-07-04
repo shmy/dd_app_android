@@ -1,21 +1,25 @@
 package tech.shmy.dd_app.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Color;
-import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.allen.library.SuperTextView;
+import com.bumptech.glide.Glide;
+import com.lxj.xpopup.XPopup;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import tech.shmy.dd_app.R;
+import tech.shmy.dd_app.database.HistoryDBManager;
 import tech.shmy.dd_app.entity.HistoryEntity;
+
+import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
 
 
 public class HistoryAdapter extends BaseAdapter {
@@ -23,7 +27,6 @@ public class HistoryAdapter extends BaseAdapter {
 
 
     private List<HistoryEntity> historyEntities;
-    private int id;
 
     public HistoryAdapter(Context context, List<HistoryEntity> historyEntities) {
         this.context = context;
@@ -40,8 +43,8 @@ public class HistoryAdapter extends BaseAdapter {
         this.historyEntities = historyEntities;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void addHistoryEntities(List<HistoryEntity> historyEntities) {
+        this.historyEntities.addAll(historyEntities);
     }
 
     @Override
@@ -50,7 +53,7 @@ public class HistoryAdapter extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int i) {
+    public HistoryEntity getItem(int i) {
         return historyEntities.get(i);
     }
 
@@ -61,31 +64,41 @@ public class HistoryAdapter extends BaseAdapter {
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
-        HistoryEntity menuEntity = historyEntities.get(i);
-        LinearLayout relativeLayout = getLinearLayout();
-        SuperTextView textView = getTextView();
+        HistoryEntity historyEntity = historyEntities.get(i);
+        @SuppressLint("ViewHolder") LinearLayout layout = (LinearLayout) View.inflate(context, R.layout.history_item, null);
+        ImageView pic = layout.findViewById(R.id.pic);
+        TextView textView = layout.findViewById(R.id.name);
+        ImageView button = layout.findViewById(R.id.more);
+        Glide.with(context)
+                .load(historyEntity.pic)
+                .placeholder(R.drawable.img_placeholder)
+                .error(R.drawable.img_error)
+                .transition(withCrossFade())
+                .circleCrop()
+                .into(pic);
+        textView.setText(historyEntity.name);
+        button.setOnClickListener(view1 -> {
+            new XPopup.Builder(context)
+                    .atView(view1)  // 依附于所点击的View，内部会自动判断在上方或者下方显示
+                    .asAttachList(new String[]{"删除记录"},
+                            new int[]{},
+//                                new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher},
+                            (position, text) -> {
+                                switch (position) {
+                                    case 0: {
+                                        HistoryDBManager.getInstance().deleteById(historyEntity.id);
+                                        historyEntities.remove(i);
+                                        notifyDataSetChanged();
+                                    }
+                                    break;
+                                    default:
+                                        break;
+                                }
 
-        relativeLayout.addView(textView);
-        return relativeLayout;
-    }
-
-    private LinearLayout getLinearLayout() {
-        LinearLayout relativeLayout = new LinearLayout(context);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        relativeLayout.setLayoutParams(layoutParams);
-        return relativeLayout;
-    }
-
-    private SuperTextView getTextView() {
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        SuperTextView textView = new SuperTextView(context);
-        textView.setLeftString("圣火令");
-        textView.setLeftBottomString("魔教教主");
-//        textView.setLeftIcon(0);
-        textView.setPadding(0, 20, 0, 20);
-        textView.setLeftTextGravity(Gravity.CENTER_VERTICAL);
-        textView.setRightIcon(R.drawable.ic_baseline_keyboard_arrow_right_24px);
-        return textView;
+                            })
+                    .show();
+        });
+        return layout;
     }
 
 }

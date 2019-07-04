@@ -34,14 +34,17 @@ import java.util.Collections;
 import java.util.List;
 
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
+import chuangyuan.ycj.videolibrary.utils.AnimUtils;
 import chuangyuan.ycj.videolibrary.video.ExoUserPlayer;
 import chuangyuan.ycj.videolibrary.video.VideoPlayerManager;
 import chuangyuan.ycj.videolibrary.widget.VideoPlayerView;
 import es.dmoral.toasty.Toasty;
 import tech.shmy.dd_app.R;
 import tech.shmy.dd_app.component.MyButton;
+import tech.shmy.dd_app.database.HistoryDBManager;
 import tech.shmy.dd_app.defs.AfterResponse;
 import tech.shmy.dd_app.defs.BaseActivity;
+import tech.shmy.dd_app.entity.HistoryEntity;
 import tech.shmy.dd_app.entity.LinkEntity;
 import tech.shmy.dd_app.entity.LinkEntityWithSource;
 import tech.shmy.dd_app.entity.ResourceEntity;
@@ -59,14 +62,14 @@ public class VideoActivity extends BaseActivity {
 
     public SmartRefreshLayout smartRefreshLayout;
     public VideoPlayerView videoPlayerView;
-    public LinearLayout scrollViewChild;
+    //    public LinearLayout scrollViewChild;
     public ImageView videoAudioImg;
     public ImageView videoBrightnessImg;
     private VideoEntity videoEntity;
     /***显示音频和亮度***/
     public ProgressBar videoAudioPro;
     public ProgressBar videoBrightnessPro;
-    private int id;
+    private long id;
     private String pic;
     private List<MyButton> myButtons = new ArrayList<>();
     private String playUrl = "";
@@ -128,7 +131,7 @@ public class VideoActivity extends BaseActivity {
 
     private void initVideo(Intent intent) {
         if (intent != null) {
-            this.id = intent.getIntExtra("id", -1);
+            this.id = intent.getLongExtra("id", -1);
             String pic = intent.getStringExtra("pic");
             if (pic != null) {
                 this.pic = pic;
@@ -142,55 +145,69 @@ public class VideoActivity extends BaseActivity {
         videoBrightnessPro = findViewById(R.id.exo_video_brightness_pro);
         videoAudioImg = findViewById(R.id.exo_video_audio_img);
         videoAudioPro = findViewById(R.id.exo_video_audio_pro);
-        videoPlayer = new VideoPlayerManager
-                .Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView)
-                // 重写自定义手势监听事件
-                .setOnGestureBrightnessListener((mMax, currIndex) -> {
-                    //显示你的布局
-                    videoPlayerView.getGestureBrightnessLayout().setVisibility(View.VISIBLE);
-                    //为你布局显示内容自定义内容
-                    videoBrightnessPro.setMax(mMax);
-                    videoBrightnessImg.setImageResource(chuangyuan.ycj.videolibrary.R.drawable.ic_brightness_6_white_48px);
-                    videoBrightnessPro.setProgress(currIndex);
-                })
-                //重写自定义手势监听事件，
-                .setOnGestureVolumeListener((mMax, currIndex) -> {
-                    //显示你的布局
-                    videoPlayerView.getGestureAudioLayout().setVisibility(View.VISIBLE);
-                    //为你布局显示内容自定义内容
-                    videoAudioPro.setMax(mMax);
-                    videoAudioPro.setProgress(currIndex);
-                    videoAudioImg.setImageResource(currIndex == 0 ? R.drawable.ic_volume_off_white_48px : R.drawable.ic_volume_up_white_48px);
-                })
-                .addVideoInfoListener(new VideoInfoListener() {
-                    @Override
-                    public void onPlayStart(long currPosition) {
-                    }
+        VideoPlayerManager.Builder builder = new VideoPlayerManager
+                .Builder(VideoPlayerManager.TYPE_PLAY_GESTURE, videoPlayerView);
+        builder.setOnGestureBrightnessListener((mMax, currIndex) -> {
+            //显示你的布局
+            videoPlayerView.getGestureBrightnessLayout().setVisibility(View.VISIBLE);
+            //为你布局显示内容自定义内容
+            videoBrightnessPro.setMax(mMax);
+            videoBrightnessImg.setImageResource(chuangyuan.ycj.videolibrary.R.drawable.ic_brightness_6_white_48px);
+            videoBrightnessPro.setProgress(currIndex);
+        });
+        builder.setOnGestureVolumeListener((mMax, currIndex) -> {
+            //显示你的布局
+            videoPlayerView.getGestureAudioLayout().setVisibility(View.VISIBLE);
+            //为你布局显示内容自定义内容
+            videoAudioPro.setMax(mMax);
+            videoAudioPro.setProgress(currIndex);
+            videoAudioImg.setImageResource(currIndex == 0 ? R.drawable.ic_volume_off_white_48px : R.drawable.ic_volume_up_white_48px);
+        });
+        builder.addUpdateProgressListener(new AnimUtils.UpdateProgressListener() {
+            @Override
+            public void updateProgress(long position, long bufferedPosition, long duration) {
+                if (videoPlayer != null && videoEntity != null) {
+                    HistoryEntity historyEntity = new HistoryEntity();
+                    historyEntity.vid = id;
+                    historyEntity.name = videoEntity.name;
+                    historyEntity.pic = videoEntity.pic;
+                    historyEntity.url = playUrl;
+                    historyEntity.position = videoPlayer.getCurrentPosition();
+                    historyEntity.duration = videoPlayer.getDuration();
+                    HistoryDBManager.getInstance().upsertByVid(historyEntity);
+                }
+            }
+        });
+        builder.addVideoInfoListener(new VideoInfoListener() {
+            @Override
+            public void onPlayStart(long currPosition) {
+            }
 
-                    @Override
-                    public void onLoadingChanged() {
-                    }
+            @Override
+            public void onLoadingChanged() {
+            }
 
-                    @Override
-                    public void onPlayerError(@Nullable ExoPlaybackException e) {
-                        if (e.type == ExoPlaybackException.TYPE_SOURCE && playUrl.startsWith("https")) {
-                            playUrl = playUrl.replaceAll("^https", "http");
-                            playWithUrl(playUrl);
-                            Toasty.info(VideoActivity.this, "https 线路可能失效, 尝试切换到 http 线路", Toast.LENGTH_SHORT, true).show();
-                        }
-                    }
+            @Override
+            public void onPlayerError(@Nullable ExoPlaybackException e) {
+                if (e.type == ExoPlaybackException.TYPE_SOURCE && playUrl.startsWith("https")) {
+                    playUrl = playUrl.replaceAll("^https", "http");
+                    playWithUrl(playUrl);
+                    Toasty.info(VideoActivity.this, "https 线路可能失效, 尝试切换到 http 线路", Toast.LENGTH_SHORT, true).show();
+                }
+            }
 
-                    @Override
-                    public void onPlayEnd() {
+            @Override
+            public void onPlayEnd() {
 
-                    }
+            }
 
-                    @Override
-                    public void isPlaying(boolean playWhenReady) {
+            @Override
+            public void isPlaying(boolean playWhenReady) {
 
-                    }
-                })
-                .create();
+            }
+        });
+        videoPlayer = builder.create();// 重写自定义手势监听事件
+//重写自定义手势监听事件，
         if (pic != null) {
             ImageView previewImage = videoPlayerView.getPreviewImage();
             previewImage.setScaleType(ImageView.ScaleType.FIT_CENTER);
@@ -272,19 +289,9 @@ public class VideoActivity extends BaseActivity {
         scrollViewChild.removeAllViews();
         myButtons.clear();
 
-        Button button = new Button(this);
-        button.setOnClickListener(view -> {
-            Intent intent = new Intent(this, ThrowingScreenActivity.class);
-            intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
-            pushActivity(intent);
-        });
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(20, 20, 20, 20);
-        button.setLayoutParams(layoutParams);
-        button.setBackgroundColor(Color.parseColor("#008877"));
-        button.setTextColor(Color.parseColor("#ffffff"));
-        button.setText("投屏到其他设备");
-        scrollViewChild.addView(button);
+
+        scrollViewChild.addView(getTButton());
+        scrollViewChild.addView(getDButton());
         for (LinkEntityWithSource linkEntityWithSource : linkEntityWithSources) {
             HorizontalScrollView horizontalScrollView = new HorizontalScrollView(this);
             LinearLayout linearLayout = new LinearLayout(this);
@@ -352,6 +359,39 @@ public class VideoActivity extends BaseActivity {
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onUserLoggedEvent(UserLoggedEvent event) {
         smartRefreshLayout.autoRefresh();
+    }
+
+    private Button getTButton() {
+        Button button = new Button(this);
+        button.setOnClickListener(view -> {
+            Intent intent = new Intent(this, ThrowingScreenActivity.class);
+            intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
+            pushActivity(intent);
+        });
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 20, 20, 20);
+        button.setLayoutParams(layoutParams);
+        button.setBackgroundColor(Color.parseColor("#008877"));
+        button.setTextColor(Color.parseColor("#ffffff"));
+        button.setText("投屏到其他设备");
+        return button;
+    }
+
+    private Button getDButton() {
+        Button button = new Button(this);
+        button.setOnClickListener(view -> {
+            Intent intent = new Intent(this, PreDownloadActivity.class);
+            intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
+            intent.putExtra("name", videoEntity.name);
+            pushActivity(intent);
+        });
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.setMargins(20, 20, 20, 20);
+        button.setLayoutParams(layoutParams);
+        button.setBackgroundColor(Color.parseColor("#008877"));
+        button.setTextColor(Color.parseColor("#ffffff"));
+        button.setText("下载视频");
+        return button;
     }
 
 }

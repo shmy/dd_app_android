@@ -95,7 +95,7 @@ public class HttpClient {
         }
     }
 
-    public static AfterResponse<VideoEntity> getVideoDetail(int id) {
+    public static AfterResponse<VideoEntity> getVideoDetail(long id) {
         try {
             VideoEntity data = HttpClient.getVideoService()
                     .getVideoDetail(id)

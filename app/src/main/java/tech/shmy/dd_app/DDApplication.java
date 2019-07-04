@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.arialyy.aria.core.Aria;
 import com.google.gson.Gson;
 import com.tencent.mmkv.MMKV;
 import com.tendcloud.tenddata.TCAgent;
@@ -17,6 +18,7 @@ import org.lzh.framework.updatepluginlib.base.UpdateStrategy;
 import org.lzh.framework.updatepluginlib.model.Update;
 
 import es.dmoral.toasty.Toasty;
+import tech.shmy.dd_app.database.HistoryDBManager;
 import tech.shmy.dd_app.entity.UpdateEntity;
 
 
@@ -101,7 +103,8 @@ public class DDApplication extends Application {
         TCAgent.init(this);
         TCAgent.setReportUncaughtExceptions(true);
         TCAgent.setAntiCheatingEnabled(this, true);
-//        HistoryDBManager.ini(getApplicationContext());
+        Aria.init(this);
+        HistoryDBManager.init(this);
     }
 
 

@@ -29,6 +29,7 @@ import butterknife.OnClick;
 import es.dmoral.toasty.Toasty;
 import tech.shmy.dd_app.R;
 import tech.shmy.dd_app.activity.AboutActivity;
+import tech.shmy.dd_app.activity.DownloadActivity;
 import tech.shmy.dd_app.activity.HistoryActivity;
 import tech.shmy.dd_app.activity.LoginActivity;
 import tech.shmy.dd_app.activity.WebViewActivity;
@@ -143,11 +144,16 @@ public class MineFragment extends BaseFragment {
         Intent intent = new Intent(getContext(), LoginActivity.class);
         pushActivity(intent);
     }
-//    @OnClick(R.id.history)
-//    void onHistoryClick() {
-//        Intent intent = new Intent(getContext(), HistoryActivity.class);
-//        pushActivity(intent);
-//    }
+    @OnClick(R.id.history)
+    void onHistoryClick() {
+        Intent intent = new Intent(getContext(), HistoryActivity.class);
+        pushActivity(intent);
+    }
+    @OnClick(R.id.download)
+    void onDownloadClick() {
+        Intent intent = new Intent(getContext(), DownloadActivity.class);
+        pushActivity(intent);
+    }
     @OnClick(R.id.subject)
     void onSubjectClick() {
         Intent intent = new Intent(getContext(), WebViewActivity.class);

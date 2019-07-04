@@ -16,7 +16,7 @@ public interface VideoService {
     Call<List<VideoEntity>> getHotVideoList(@Query("pid") int id);
 
     @GET("video/detail/{id}")
-    Call<VideoEntity> getVideoDetail(@Path("id") int id);
+    Call<VideoEntity> getVideoDetail(@Path("id") long id);
 
     @GET("video/search")
     Call<List<VideoEntity>> getSearchList(@Query("keyword") String keyword, @Query("page") int page, @Query("per_page") int per_page);
