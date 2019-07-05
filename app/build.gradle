@@ -7,7 +7,7 @@ android {
         applicationId "tech.shmy.dd_app"
         minSdkVersion 21
         targetSdkVersion 29
-        versionCode 8
+        versionCode 9
         versionName "1.0.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -78,6 +78,8 @@ dependencies {
 //    implementation 'com.github.dfqin:grantor:2.5'
 
     implementation 'com.lxj:xpopup:1.8.6-x'
+
+    implementation 'com.github.anzewei:parallaxbacklayout:1.1.9'
 
     // talkingData
     implementation files('libs/SaaS_AppAnalytics_Android_SDK_V4.0.29.jar')

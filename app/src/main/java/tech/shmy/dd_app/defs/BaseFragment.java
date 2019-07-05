@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import butterknife.ButterKnife;
+import tech.shmy.dd_app.R;
 
 
 public class BaseFragment extends Fragment {

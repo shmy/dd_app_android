@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
+import com.github.anzewei.parallaxbacklayout.ParallaxHelper;
 import com.google.gson.Gson;
 import com.tencent.mmkv.MMKV;
 import com.tendcloud.tenddata.TCAgent;
@@ -103,6 +104,7 @@ public class DDApplication extends Application {
         TCAgent.setReportUncaughtExceptions(true);
         TCAgent.setAntiCheatingEnabled(this, true);
         HistoryDBManager.init(this);
+        registerActivityLifecycleCallbacks(ParallaxHelper.getInstance());
     }
 
 

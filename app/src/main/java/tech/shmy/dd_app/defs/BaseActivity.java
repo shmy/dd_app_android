@@ -11,7 +11,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+
+import com.github.anzewei.parallaxbacklayout.ParallaxBack;
+
 import tech.shmy.dd_app.R;
+@ParallaxBack
 public class BaseActivity extends AppCompatActivity{
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
