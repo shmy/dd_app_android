@@ -27,7 +27,6 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning"
         tools:targetApi="m">
-        <activity android:name=".activity.DownloadActivity" />
         <activity android:name=".activity.HistoryActivity" />
         <activity android:name=".activity.AboutActivity" />
         <activity android:name=".activity.WebViewActivity" />

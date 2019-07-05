@@ -32,15 +32,15 @@
         android:paddingRight="10dp"
         android:src="@drawable/ic_baseline_live_tv_24px"
         android:layout_height="match_parent" />
-    <!--<ImageView-->
-        <!--android:tooltipText="下载"-->
-        <!--android:id="@+id/download"-->
-        <!--android:foreground="?android:attr/selectableItemBackground"-->
+    <ImageView
+        android:tooltipText="下载"
+        android:id="@+id/download"
+        android:foreground="?android:attr/selectableItemBackground"
 
-        <!--android:layout_width="45dp"-->
-        <!--android:paddingLeft="10dp"-->
-        <!--android:paddingRight="10dp"-->
-        <!--android:src="@drawable/ic_outline_cloud_download_24px"-->
-        <!--android:layout_height="match_parent" />-->
+        android:layout_width="45dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:src="@drawable/ic_outline_cloud_download_24px"
+        android:layout_height="match_parent" />
 </com.google.android.flexbox.FlexboxLayout>
 </LinearLayout>

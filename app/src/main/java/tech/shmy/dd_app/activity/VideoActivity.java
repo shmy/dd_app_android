@@ -293,19 +293,19 @@ public class VideoActivity extends BaseActivity {
         @SuppressLint("ViewHolder") LinearLayout scrollViewChild = (LinearLayout) View.inflate(this, R.layout.video_detail, null);
         TextView nameText = scrollViewChild.findViewById(R.id.name);
         ImageView tvBtn = scrollViewChild.findViewById(R.id.tv);
-//        ImageView downBtn = scrollViewChild.findViewById(R.id.download);
+        ImageView downBtn = scrollViewChild.findViewById(R.id.download);
         nameText.setText(videoEntity.name);
         tvBtn.setOnClickListener(view -> {
             Intent intent = new Intent(this, ThrowingScreenActivity.class);
             intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
             pushActivity(intent);
         });
-//        downBtn.setOnClickListener(view -> {
-//            Intent intent = new Intent(this, PreDownloadActivity.class);
-//            intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
-//            intent.putExtra("name", videoEntity.name);
-//            pushActivity(intent);
-//        });
+        downBtn.setOnClickListener(view -> {
+            Intent intent = new Intent(this, PreDownloadActivity.class);
+            intent.putExtra("linkEntityWithSources", new Gson().toJson(linkEntityWithSources));
+            intent.putExtra("name", videoEntity.name);
+            pushActivity(intent);
+        });
         for (LinkEntityWithSource linkEntityWithSource : linkEntityWithSources) {
             HorizontalScrollView horizontalScrollView = new HorizontalScrollView(this);
             LinearLayout linearLayout = new LinearLayout(this);

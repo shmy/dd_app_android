@@ -75,15 +75,15 @@ dependencies {
 
     implementation 'com.kaopiz:kprogresshud:1.2.0'
 
-    implementation 'com.github.dfqin:grantor:2.5'
+//    implementation 'com.github.dfqin:grantor:2.5'
 
     implementation 'com.lxj:xpopup:1.8.6-x'
 
     // talkingData
     implementation files('libs/SaaS_AppAnalytics_Android_SDK_V4.0.29.jar')
 
-    implementation 'com.arialyy.aria:aria-core:3.6.5_beta_2'
-    annotationProcessor 'com.arialyy.aria:aria-compiler:3.6.5_beta_2'
+//    implementation 'com.arialyy.aria:aria-core:3.6.5_beta_2'
+//    annotationProcessor 'com.arialyy.aria:aria-compiler:3.6.5_beta_2'
 
     //
     testImplementation 'junit:junit:4.12'

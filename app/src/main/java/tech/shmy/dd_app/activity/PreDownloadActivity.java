@@ -27,21 +27,16 @@ import tech.shmy.dd_app.component.MyButton;
 import tech.shmy.dd_app.defs.BaseActivity;
 import tech.shmy.dd_app.entity.LinkEntity;
 import tech.shmy.dd_app.entity.LinkEntityWithSource;
-import tech.shmy.dd_app.util.DownloadManager;
+import tech.shmy.dd_app.util.M3u8Download;
 import tech.shmy.dd_app.util.Util;
 
 public class PreDownloadActivity extends BaseActivity {
-    public static final String SOURCES =
-            "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890";
-
+    private final String SITE_NAME = "黑人视频";
     private List<LinkEntityWithSource> linkEntityWithSources;
-    private List<LinkEntity> linkEntityList = new ArrayList<>();
     private KProgressHUD kProgressHUD;
     private String name;
     @BindView(R.id.container)
     LinearLayout scrollViewChild;
-    @BindView(R.id.submit)
-    public Button submit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +49,7 @@ public class PreDownloadActivity extends BaseActivity {
             name = intent.getStringExtra("name");
             LinkEntityWithSource[] linkEntityWithSources = new Gson().fromJson(linkEntityWithSourcesString, LinkEntityWithSource[].class);
             this.linkEntityWithSources = Arrays.asList(linkEntityWithSources);
-            DownloadManager.getInstance().getDownloadReceiver().resumeAllTask();
             init();
-            refreshSubmit();
         }
     }
 
@@ -70,14 +63,7 @@ public class PreDownloadActivity extends BaseActivity {
                 MyButton myButton = new MyButton(this);
                 myButton.setUrl(linkEntity.url);
                 myButton.setOnClickListener(view -> {
-                    if (this.linkEntityList.contains(linkEntity)) {
-
-                        this.linkEntityList.remove(linkEntity);
-                    } else {
-                        this.linkEntityList.add(linkEntity);
-
-                    }
-                    refreshSubmit();
+                    doDownload(linkEntity);
                 });
                 myButton.setText(linkEntity.tag);
                 linearLayout.addView(myButton);
@@ -94,14 +80,8 @@ public class PreDownloadActivity extends BaseActivity {
         }
     }
 
-    private void refreshSubmit() {
-        int count = linkEntityList.size();
-        submit.setEnabled(count > 0);
-        submit.setText("添加下载任务 (" + count + ")");
-    }
 
-    @OnClick(R.id.submit)
-    void onSubmit() {
+    private void doDownload(LinkEntity linkEntity) {
         kProgressHUD = KProgressHUD.create(PreDownloadActivity.this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
                 .setLabel("请稍后")
                 .setDetailsLabel("正在添加下载任务...")
@@ -109,22 +89,12 @@ public class PreDownloadActivity extends BaseActivity {
                 .setAnimationSpeed(2)
                 .setCancellable(false)
                 .setDimAmount(0.5f);
-        for (LinkEntity linkEntity : linkEntityList) {
-            String random = generateString(new Random(), SOURCES, 10);
-            String filepath = Environment.getExternalStorageDirectory().getPath() + "/Download/" + name + "_" + linkEntity.tag + "_" + random + "_.mp4";
-            DownloadManager.getInstance().start(linkEntity.url, filepath);
-            System.out.println(linkEntityList);
-        }
+
+        String url = linkEntity.url;
+        String filename = name + "-" + linkEntity.tag + "[" + SITE_NAME + "]";
+        M3u8Download.download(this, filename, url);
         kProgressHUD.dismiss();
-        linkEntityList.clear();
-        refreshSubmit();
-        Toasty.success(PreDownloadActivity.this, "添加任务成功", Toasty.LENGTH_LONG).show();
-    }
-    private String generateString(Random random, String characters, int length) {
-        char[] text = new char[length];
-        for (int i = 0; i < length; i++) {
-            text[i] = characters.charAt(random.nextInt(characters.length()));
-        }
-        return new String(text);
+//        Toasty.success(PreDownloadActivity.this, "添加任务成功", Toasty.LENGTH_LONG).show();
+
     }
 }

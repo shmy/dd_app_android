@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 
-import com.arialyy.aria.core.Aria;
 import com.google.gson.Gson;
 import com.tencent.mmkv.MMKV;
 import com.tendcloud.tenddata.TCAgent;
@@ -103,7 +102,6 @@ public class DDApplication extends Application {
         TCAgent.init(this);
         TCAgent.setReportUncaughtExceptions(true);
         TCAgent.setAntiCheatingEnabled(this, true);
-        Aria.init(this);
         HistoryDBManager.init(this);
     }
 
