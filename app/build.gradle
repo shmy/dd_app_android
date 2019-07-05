@@ -82,8 +82,6 @@ dependencies {
     // talkingData
     implementation files('libs/SaaS_AppAnalytics_Android_SDK_V4.0.29.jar')
 
-//    implementation 'com.arialyy.aria:aria-core:3.6.5_beta_2'
-//    annotationProcessor 'com.arialyy.aria:aria-compiler:3.6.5_beta_2'
 
     //
     testImplementation 'junit:junit:4.12'

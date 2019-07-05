@@ -134,6 +134,8 @@ public class VideoActivity extends BaseActivity {
         if (intent != null) {
             this.id = intent.getLongExtra("id", -1);
             String pic = intent.getStringExtra("pic");
+            System.out.println(this.id);
+            System.out.println(pic);
             if (pic != null) {
                 this.pic = pic;
             }

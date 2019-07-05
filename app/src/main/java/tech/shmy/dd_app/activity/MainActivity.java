@@ -25,6 +25,7 @@ import tech.shmy.dd_app.fragment.HomeFragment;
 import tech.shmy.dd_app.fragment.CategoryFragment;
 import tech.shmy.dd_app.fragment.MineFragment;
 import tech.shmy.dd_app.util.HttpClient;
+import tech.shmy.dd_app.util.JsApi;
 
 public class MainActivity extends BaseActivity {
     public ViewPager viewPager;
@@ -69,6 +70,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        JsApi.init(this);
 
         HttpClient.init(this);
         setContentView(R.layout.activity_main);

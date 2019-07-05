@@ -1,5 +1,6 @@
 package tech.shmy.dd_app.activity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -19,6 +20,7 @@ import butterknife.ButterKnife;
 import es.dmoral.toasty.Toasty;
 import tech.shmy.dd_app.R;
 import tech.shmy.dd_app.defs.BaseActivity;
+import tech.shmy.dd_app.util.JsApi;
 import wendu.dsbridge.DWebView;
 
 public class WebViewActivity extends BaseActivity {
@@ -42,10 +44,11 @@ public class WebViewActivity extends BaseActivity {
         init();
     }
 
+    @SuppressLint("SetJavaScriptEnabled")
     private void init() {
         DWebView.setWebContentsDebuggingEnabled(false);
         dWebView.getSettings().setJavaScriptEnabled(true);
-        dWebView.getSettings().setSavePassword(true);
+        dWebView.addJavascriptObject(new JsApi(), null);
         dWebView.getSettings().setSaveFormData(true);
         dWebView.getSettings().setSupportZoom(true);
         dWebView.setJavascriptCloseWindowListener(() -> false);
