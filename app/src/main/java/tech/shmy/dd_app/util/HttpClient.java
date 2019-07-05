@@ -32,6 +32,8 @@ import tech.shmy.dd_app.event.UserToLogin;
 import tech.shmy.dd_app.service.UserService;
 import tech.shmy.dd_app.service.VideoService;
 
+import static tech.shmy.dd_app.defs.Env.API_BASE_URL;
+
 public class HttpClient {
     private static OkHttpClient _client;
     private static VideoService _videoService;
@@ -74,7 +76,7 @@ public class HttpClient {
                 .setDateFormat("yyyy-MM-dd hh:mm:ss")
                 .create();
         Retrofit retrofit = new Retrofit.Builder().client(HttpClient.getClient())
-                .baseUrl("https://dd.shmy.tech/api/v1/")
+                .baseUrl(API_BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create(gson)).build();
         _videoService = retrofit.create(VideoService.class);
         _userService = retrofit.create(UserService.class);

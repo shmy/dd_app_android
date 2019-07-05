@@ -20,6 +20,8 @@ import es.dmoral.toasty.Toasty;
 import tech.shmy.dd_app.R;
 import tech.shmy.dd_app.defs.BaseActivity;
 
+import static tech.shmy.dd_app.defs.Env.WEBVIEW_BASE_URL;
+
 public class AboutActivity extends BaseActivity {
     @BindView(R.id.version)
     public TextView versionTextView;
@@ -93,25 +95,25 @@ public class AboutActivity extends BaseActivity {
     @OnClick(R.id.group)
     void onGruopClick() {
         Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra("url", "https://dd.shmy.tech/dd_app/join_group");
+        intent.putExtra("url", WEBVIEW_BASE_URL + "/join_group");
         pushActivity(intent);
     }
     @OnClick(R.id.help_center)
     void onHelpCenterClick() {
         Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra("url", "https://dd.shmy.tech/dd_app/help_center");
+        intent.putExtra("url", WEBVIEW_BASE_URL + "/help_center");
         pushActivity(intent);
     }
     @OnClick(R.id.feedback)
     void onFeedBackClick() {
         Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra("url", "https://dd.shmy.tech/dd_app/feedback");
+        intent.putExtra("url", WEBVIEW_BASE_URL + "/feedback");
         pushActivity(intent);
     }
     @OnClick(R.id.complaint)
     void onComplaintClick() {
         Intent intent = new Intent(this, WebViewActivity.class);
-        intent.putExtra("url", "https://dd.shmy.tech/dd_app/complaint");
+        intent.putExtra("url", WEBVIEW_BASE_URL + "/complaint");
         pushActivity(intent);
     }
 

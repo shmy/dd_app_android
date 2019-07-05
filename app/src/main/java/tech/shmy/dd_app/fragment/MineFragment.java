@@ -42,6 +42,7 @@ import tech.shmy.dd_app.util.HttpClient;
 import tech.shmy.dd_app.util.Util;
 
 import static com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions.withCrossFade;
+import static tech.shmy.dd_app.defs.Env.WEBVIEW_BASE_URL;
 
 
 public class MineFragment extends BaseFragment {
@@ -156,7 +157,7 @@ public class MineFragment extends BaseFragment {
     @OnClick(R.id.subject)
     void onSubjectClick() {
         Intent intent = new Intent(getContext(), WebViewActivity.class);
-        intent.putExtra("url", "https://dd.shmy.tech/dd_app/subject");
+        intent.putExtra("url", WEBVIEW_BASE_URL + "/subject");
         pushActivity(intent);
     }
 

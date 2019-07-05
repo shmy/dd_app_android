@@ -2,6 +2,7 @@ package tech.shmy.dd_app.activity;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import es.dmoral.toasty.Toasty;
 import tech.shmy.dd_app.R;
 import tech.shmy.dd_app.defs.BaseActivity;
 import wendu.dsbridge.DWebView;
@@ -27,17 +29,19 @@ public class WebViewActivity extends BaseActivity {
     @BindView(R.id.progressBar)
     public ProgressBar progressBar;
     private String url;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_web_view);
         ButterKnife.bind(this);
-         Intent intent =  getIntent();
-         if (intent != null) {
-             url = intent.getStringExtra("url");
-         }
+        Intent intent = getIntent();
+        if (intent != null) {
+            url = intent.getStringExtra("url");
+        }
         init();
     }
+
     private void init() {
         DWebView.setWebContentsDebuggingEnabled(false);
         dWebView.getSettings().setJavaScriptEnabled(true);
@@ -45,8 +49,17 @@ public class WebViewActivity extends BaseActivity {
         dWebView.getSettings().setSaveFormData(true);
         dWebView.getSettings().setSupportZoom(true);
         dWebView.setJavascriptCloseWindowListener(() -> false);
+        dWebView.setDownloadListener((url, userAgent, contentDisposition, mimeType, contentLength) -> {
+            Intent intent = new Intent();
+            intent.setAction(Intent.ACTION_VIEW);
+            intent.addCategory(Intent.CATEGORY_BROWSABLE);
+            intent.setData(Uri.parse(url));
+            startActivity(intent);
+            Toasty.info(this, "请在浏览器中完成下载").show();
+        });
 //        dWebView.addJavascriptObject(new JsApi(methodChannel), "flutter");
         dWebView.setWebChromeClient(new WebChromeClient() {
+
             @Override
             public void onReceivedTitle(WebView view, String title) {
                 super.onReceivedTitle(view, title);
@@ -59,7 +72,8 @@ public class WebViewActivity extends BaseActivity {
                 progressBar.setProgress(newProgress);
             }
         });
-        dWebView.setWebViewClient(new WebViewClient(){
+        dWebView.setWebViewClient(new WebViewClient() {
+
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -83,7 +97,7 @@ public class WebViewActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (dWebView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK){//点击返回按钮的时候判断有没有上一页
+        if (dWebView.canGoBack() && keyCode == KeyEvent.KEYCODE_BACK) {//点击返回按钮的时候判断有没有上一页
             dWebView.goBack(); // goBack()表示返回dWebView的上一页面
             return true;
         }

@@ -9,6 +9,8 @@ import android.net.Uri;
 
 import tech.shmy.dd_app.activity.WebViewActivity;
 
+import static tech.shmy.dd_app.defs.Env.WEBVIEW_BASE_URL;
+
 public class M3u8Download {
     private static String PACKAGE_NAME = "ru.yourok.m3u8loader";
     private static String ACTIVITY_PATH = ".activitys.AddListActivity";
@@ -41,7 +43,7 @@ public class M3u8Download {
 
     public static void installM3u8Loader(Context context) {
         Intent intent = new Intent(context, WebViewActivity.class);
-        intent.putExtra("url", "https://dd.shmy.tech/dd_app/m3u8download");
+        intent.putExtra("url", WEBVIEW_BASE_URL + "/m3u8download");
         context.startActivity(intent);
     }
 
