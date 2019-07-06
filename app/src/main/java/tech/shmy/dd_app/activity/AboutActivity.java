@@ -133,11 +133,13 @@ public class AboutActivity extends BaseActivity {
     void onClearCache() {
         kProgressHUD.setDetailsLabel("正在清理缓存...").show();
         String[] keys = Util.mmkv.allKeys();
-        for (String key : keys) {
-            if (key.equals("token")) {
-                continue;
+        if (keys != null) {
+            for (String key : keys) {
+                if (key.equals("token")) {
+                    continue;
+                }
+                Util.mmkv.remove(key);
             }
-            Util.mmkv.remove(key);
         }
         refreshCacheSize();
         kProgressHUD.dismiss();
@@ -145,6 +147,10 @@ public class AboutActivity extends BaseActivity {
 
     private void refreshCacheSize() {
         String[] keys = Util.mmkv.allKeys();
+        if (keys == null) {
+            clearCacheView.setRightString("0B");
+            return;
+        }
         long size = 0;
         for (String key : keys) {
             if (key.equals("token")) {
@@ -155,6 +161,7 @@ public class AboutActivity extends BaseActivity {
         clearCacheView.setRightString(getSizeText(size));
 
     }
+
     private String getSizeText(long size) {
         //获取到的size为：1705230
         int GB = 1024 * 1024 * 1024;//定义GB的计算常量
