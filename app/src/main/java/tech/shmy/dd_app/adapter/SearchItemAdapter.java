@@ -63,7 +63,7 @@ public class SearchItemAdapter extends BaseAdapter {
 
     private LinearLayout getLinearLayout() {
         LinearLayout relativeLayout = new LinearLayout(context);
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 100);
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, 120);
         relativeLayout.setLayoutParams(layoutParams);
         return relativeLayout;
     }

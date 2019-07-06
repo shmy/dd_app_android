@@ -43,11 +43,12 @@ public class HttpClient {
     private static VideoService getVideoService() {
         if (_videoService == null) {
             synchronized (Retrofit.class) {
-               HttpClient.initService();
+                HttpClient.initService();
             }
         }
         return _videoService;
     }
+
     private static UserService getUserService() {
         if (_userService == null) {
             synchronized (Retrofit.class) {
@@ -56,6 +57,7 @@ public class HttpClient {
         }
         return _userService;
     }
+
     private static OkHttpClient getClient() {
         if (_client == null) {
             synchronized (OkHttpClient.class) {
@@ -81,6 +83,7 @@ public class HttpClient {
         _videoService = retrofit.create(VideoService.class);
         _userService = retrofit.create(UserService.class);
     }
+
     public static void init(Activity activity) {
         HttpClient.activity = activity;
     }
@@ -98,11 +101,15 @@ public class HttpClient {
     }
 
     public static AfterResponse<VideoEntity> getVideoDetail(long id) {
+        VideoEntity cacheVideo = CacheManager.getCacheVideo(id);
+        if (cacheVideo != null) {
+            return new AfterResponse<>(cacheVideo);
+        }
         try {
             VideoEntity data = HttpClient.getVideoService()
                     .getVideoDetail(id)
                     .execute().body();
-            return new AfterResponse<>(data);
+            return new AfterResponse<>(CacheManager.setCacheVideo(data));
         } catch (IOException e) {
             Error error = new Error(e.getMessage());
             return new AfterResponse<>(error);
@@ -214,6 +221,8 @@ public class HttpClient {
     }
 
     private static Response TokenIntercept(Interceptor.Chain chain) throws IOException {
+        System.out.println("-----------");
+        System.out.println(chain.request().url());
         String token = Util.mmkv.decodeString("token");
         Request request = chain.request()
                 .newBuilder()
