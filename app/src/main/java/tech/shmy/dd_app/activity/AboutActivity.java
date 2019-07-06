@@ -66,10 +66,11 @@ public class AboutActivity extends BaseActivity {
 
     @OnClick(R.id.check)
     void onCheckClick() {
+
         UpdateBuilder.create().setCheckCallback(new CheckCallback() {
             @Override
             public void onCheckStart() {
-                kProgressHUD.show();
+                kProgressHUD.setDetailsLabel("正在检查更新...").show();
             }
 
             @Override
@@ -130,13 +131,7 @@ public class AboutActivity extends BaseActivity {
 
     @OnClick(R.id.clear_cache)
     void onClearCache() {
-        kProgressHUD = KProgressHUD.create(AboutActivity.this).setStyle(KProgressHUD.Style.SPIN_INDETERMINATE)
-                .setLabel("请稍后")
-                .setDetailsLabel("正在清理缓存...")
-                .setCancellable(true)
-                .setAnimationSpeed(2)
-                .setCancellable(false)
-                .setDimAmount(0.5f);
+        kProgressHUD.setDetailsLabel("正在清理缓存...").show();
         String[] keys = Util.mmkv.allKeys();
         for (String key : keys) {
             if (key.equals("token")) {
