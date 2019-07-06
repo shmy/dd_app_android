@@ -53,6 +53,23 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- Deep Links -->
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data
+                    android:host="shmy"
+                    android:path="/scheme_uri"
+                    android:port="80"
+                    android:scheme="ddapp" />
+                <!--<data-->
+                <!--android:host="dd_app"-->
+                <!--android:scheme="dd_app"-->
+                <!--android:pathPattern="/.*" />-->
+            </intent-filter>
+
         </activity>
 
         <service android:name=".cyberlink.service.DLNAService" />

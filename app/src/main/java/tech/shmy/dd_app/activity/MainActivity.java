@@ -1,9 +1,13 @@
 package tech.shmy.dd_app.activity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.bottomnavigation.BottomNavigationView.OnNavigationItemSelectedListener;
+import com.google.gson.Gson;
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
@@ -74,8 +78,8 @@ public class MainActivity extends BaseActivity {
 
         HttpClient.init(this);
         setContentView(R.layout.activity_main);
+        setScheme();
         checkUpdate();
-
         List<Fragment> fragments = new ArrayList<>();
         fragments.add(new HomeFragment());
         fragments.add(new CategoryFragment());
@@ -87,6 +91,26 @@ public class MainActivity extends BaseActivity {
         viewPager.addOnPageChangeListener(pageChangeListener);
         viewPager.setAdapter(adapter);
         viewPager.setOffscreenPageLimit(3);
+    }
+
+    private void setScheme() {
+        Uri data = getIntent().getData();
+        if (data != null) {
+            System.out.println("---------");
+            String type = data.getQueryParameter("type");
+            if (type.equals("video")) {
+                try {
+                    Intent intent = new Intent(MainActivity.this, VideoActivity.class);
+                    JsApi.VideoArgs videoArgs = new Gson().fromJson(data.getQueryParameter("data"), JsApi.VideoArgs.class);
+                    intent.putExtra("id", videoArgs.id);
+                    intent.putExtra("pic", videoArgs.pic);
+                    pushActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+        }
     }
 
     private void checkUpdate() {
