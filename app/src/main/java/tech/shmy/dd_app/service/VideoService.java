@@ -10,7 +10,17 @@ import tech.shmy.dd_app.entity.VideoEntity;
 
 public interface VideoService {
     @GET("video/{pid}")
-    Call<List<VideoEntity>> getVideoList(@Path("pid") int id, @Query("page") int page, @Query("per_page") int per_page);
+    Call<List<VideoEntity>> getVideoList(@Path("pid") int id,
+                                         @Query("page") int page,
+                                         @Query("per_page") int per_page);
+
+    @GET("video/{pid}")
+    Call<List<VideoEntity>> getVideoList(@Path("pid") int id,
+                                         @Query("page") int page,
+                                         @Query("per_page") int per_page,
+                                         @Query("order") String order,
+                                         @Query("language") String language,
+                                         @Query("year") String year);
 
     @GET("video/hot")
     Call<List<VideoEntity>> getHotVideoList(@Query("pid") int id);
@@ -20,6 +30,13 @@ public interface VideoService {
 
     @GET("video/search")
     Call<List<VideoEntity>> getSearchList(@Query("keyword") String keyword, @Query("page") int page, @Query("per_page") int per_page);
+    @GET("video/search")
+    Call<List<VideoEntity>> getSearchList(@Query("keyword") String keyword,
+                                          @Query("page") int page,
+                                          @Query("per_page") int per_page,
+                                          @Query("order") String order,
+                                          @Query("language") String language,
+                                          @Query("year") String year);
 
     @GET("video/rand")
     Call<List<VideoEntity>> getRandList();

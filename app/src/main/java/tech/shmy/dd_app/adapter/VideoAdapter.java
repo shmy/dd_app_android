@@ -34,6 +34,10 @@ public class VideoAdapter extends BaseAdapter {
         this.videoEntities = videoEntities;
     }
 
+    public void clearVideoEntities() {
+        this.videoEntities.clear();
+    }
+
     public void appendVideoEntities(List<VideoEntity> videoEntities) {
         this.videoEntities.addAll(videoEntities);
     }

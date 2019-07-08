@@ -127,11 +127,33 @@ public class HttpClient {
             return new AfterResponse<>(error);
         }
     }
+    public static AfterResponse<List<VideoEntity>> getVideoList(int id, int page, String order, String language, String year) {
+        try {
+            List<VideoEntity> data = HttpClient.getVideoService()
+                    .getVideoList(id, page, 20, order, language, year)
+                    .execute().body();
+            return new AfterResponse<>(data);
+        } catch (IOException e) {
+            Error error = new Error(e.getMessage());
+            return new AfterResponse<>(error);
+        }
+    }
 
     public static AfterResponse<List<VideoEntity>> getSearchList(String keyword, int page, int per_page) {
         try {
             List<VideoEntity> data = HttpClient.getVideoService()
-                    .getSearchList(keyword, page, 20)
+                    .getSearchList(keyword, page, per_page)
+                    .execute().body();
+            return new AfterResponse<>(data);
+        } catch (IOException e) {
+            Error error = new Error(e.getMessage());
+            return new AfterResponse<>(error);
+        }
+    }
+    public static AfterResponse<List<VideoEntity>> getSearchList(String keyword, int page, int per_page, String order, String language, String year) {
+        try {
+            List<VideoEntity> data = HttpClient.getVideoService()
+                    .getSearchList(keyword, page, per_page, order, language, year)
                     .execute().body();
             return new AfterResponse<>(data);
         } catch (IOException e) {

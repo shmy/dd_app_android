@@ -9,6 +9,50 @@
 
     <include layout="@layout/appbar_layout" />
 
+    <com.google.android.flexbox.FlexboxLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        app:justifyContent="space_between"
+        app:alignItems="center">
+        <TextView
+            android:id="@+id/order"
+            android:layout_width="0dp"
+            app:layout_flexGrow="1"
+            app:layout_flexShrink="1"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24px"
+            android:textColor="#000"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/language"
+            android:layout_width="0dp"
+            app:layout_flexGrow="1"
+            app:layout_flexShrink="1"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24px"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:textColor="#000"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/year"
+            android:layout_width="0dp"
+            app:layout_flexGrow="1"
+            app:layout_flexShrink="1"
+            android:layout_height="match_parent"
+            android:background="?android:attr/selectableItemBackground"
+            android:drawablePadding="8dp"
+            android:gravity="center"
+            android:drawableEnd="@drawable/ic_baseline_arrow_drop_down_24px"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
+    </com.google.android.flexbox.FlexboxLayout>
+
     <com.scwang.smartrefresh.layout.SmartRefreshLayout
         android:id="@+id/container"
         android:layout_width="match_parent"

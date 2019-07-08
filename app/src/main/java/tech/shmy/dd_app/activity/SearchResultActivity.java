@@ -15,15 +15,17 @@ import tech.shmy.dd_app.R;
 import tech.shmy.dd_app.adapter.VideoAdapter;
 import tech.shmy.dd_app.defs.AfterResponse;
 import tech.shmy.dd_app.defs.BaseActivity;
+import tech.shmy.dd_app.defs.FilterListActivity;
 import tech.shmy.dd_app.entity.VideoEntity;
 import tech.shmy.dd_app.util.HttpClient;
 
-public class SearchResultActivity extends BaseActivity {
+public class SearchResultActivity extends FilterListActivity {
     private String keyword = "";
     private int page = 1;
     private VideoAdapter videoAdapter;
     public SmartRefreshLayout smartRefreshLayout;
     public GridView gridView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,6 +40,7 @@ public class SearchResultActivity extends BaseActivity {
             Intent intent = getIntent();
             this.keyword = intent.getStringExtra("keyword");
         }
+        initFilter();
         videoAdapter = new VideoAdapter(this);
         gridView.setAdapter(videoAdapter);
         gridView.setOnItemClickListener(this::handleItemClick);
@@ -64,17 +67,34 @@ public class SearchResultActivity extends BaseActivity {
 
     }
 
+    @Override
+    public void checkOfRefresh() {
+        page = 1;
+        String thisFields = getFieldsString();
+        if (!thisFields.equals(lastFields)) {
+            smartRefreshLayout.autoRefresh();
+        }
+    }
+
+    private String getFieldsString() {
+        return keyword + page + orderField + languageField + yearField;
+    }
+
     private void handleFetch(RefreshLayout refreshLayout) {
         new Thread(() -> {
-            AfterResponse<List<VideoEntity>> afterResponse = HttpClient.getSearchList(keyword, page, 20);
+            lastFields = getFieldsString();
+            AfterResponse<List<VideoEntity>> afterResponse = HttpClient.getSearchList(keyword, page, 20, orderField, languageField, yearField);
             SearchResultActivity.this.runOnUiThread(() -> {
                 if (afterResponse.error != null) {
-                    page --;
+                    page--;
                     refreshLayout.finishRefresh(false);
                     refreshLayout.finishLoadMore(false);
                     return;
                 }
                 if (afterResponse.data.size() == 0) {
+                    if (page == 1) {
+                        videoAdapter.clearVideoEntities();
+                    }
                     refreshLayout.finishRefreshWithNoMoreData();
                     refreshLayout.finishLoadMoreWithNoMoreData();
                     return;
