@@ -80,6 +80,7 @@ public class HistoryAdapter extends BaseAdapter {
         button.setOnClickListener(view1 -> {
             new XPopup.Builder(context)
                     .atView(view1)  // 依附于所点击的View，内部会自动判断在上方或者下方显示
+                    .hasShadowBg(false)
                     .asAttachList(new String[]{"删除记录"},
                             new int[]{},
 //                                new int[]{R.mipmap.ic_launcher, R.mipmap.ic_launcher},

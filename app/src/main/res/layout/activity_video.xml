@@ -5,10 +5,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#eeeeee"
     android:clipToPadding="true"
     android:fitsSystemWindows="true"
     app:flexDirection="column"
-    android:background="#eeeeee"
     tools:context=".activity.VideoActivity">
 
     <chuangyuan.ycj.videolibrary.widget.VideoPlayerView
@@ -39,10 +39,10 @@
             android:orientation="vertical">
 
             <!--<LinearLayout-->
-                <!--android:id="@+id/container"-->
-                <!--android:layout_width="match_parent"-->
-                <!--android:layout_height="wrap_content"-->
-                <!--android:orientation="vertical">-->
+            <!--android:id="@+id/container"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="vertical">-->
 
             <!--</LinearLayout>-->
 

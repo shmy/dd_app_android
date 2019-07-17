@@ -8,7 +8,6 @@ import android.app.PictureInPictureParams;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -24,6 +23,7 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.gson.Gson;
+import com.lxj.xpopup.XPopup;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -31,9 +31,11 @@ import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.TimeZone;
 
 import chuangyuan.ycj.videolibrary.listener.VideoInfoListener;
 import chuangyuan.ycj.videolibrary.utils.AnimUtils;
@@ -52,6 +54,7 @@ import tech.shmy.dd_app.entity.LinkEntityWithSource;
 import tech.shmy.dd_app.entity.ResourceEntity;
 import tech.shmy.dd_app.entity.VideoEntity;
 import tech.shmy.dd_app.event.UserLoggedEvent;
+import tech.shmy.dd_app.fragment.popup.CustomAttachPopup;
 import tech.shmy.dd_app.util.HttpClient;
 import tech.shmy.dd_app.util.Util;
 
@@ -224,12 +227,24 @@ public class VideoActivity extends BaseActivity {
         videoPlayer.hideControllerView();
     }
 
+    private void playWithUrl(String url, long position) {
+//         先 reset
+        if (videoPlayer != null) {
+            if (videoPlayer.getPlayer() != null) {
+
+                videoPlayer.getPlayer().stop(true);
+            }
+            videoPlayer.setPosition(position);
+            videoPlayer.setPlayUri(url);
+            videoPlayer.showControllerView();
+            videoPlayer.startPlayer();
+            playUrl = url;
+        }
+
+    }
+
     private void playWithUrl(String url) {
-//        Alerter.create(VideoActivity.this)
-//                .setTitle("Alert Title")
-//                .setText("Alert text...")
-//                .show();
-//
+
 //         先 reset
         if (videoPlayer != null) {
             if (videoPlayer.getPlayer() != null) {
@@ -344,7 +359,27 @@ public class VideoActivity extends BaseActivity {
         scrollViewChild.addView(actorTextView);
         scrollViewChild.addView(desTextView);
         scrollViewContainer.addView(scrollViewChild);
-        myButtons.get(0).performClick();
+        HistoryEntity historyEntity = HistoryDBManager.getInstance().findByVid(videoEntity.id);
+        if (historyEntity != null) {
+            showHistoryTips(historyEntity);
+        } else {
+            myButtons.get(0).performClick();
+        }
+    }
+
+    private void showHistoryTips(HistoryEntity historyEntity) {
+        if (historyEntity.position < 0) {
+            historyEntity.position = 0;
+        }
+        new XPopup.Builder(VideoActivity.this)
+                .atView(videoPlayerView)
+                .hasShadowBg(false)
+                .offsetX(-videoPlayerView.getWidth())
+                .offsetY(+videoPlayerView.getHeight() / 3)
+                .asCustom(new CustomAttachPopup(VideoActivity.this, () -> {
+                    onButtonItemClick(historyEntity.url, historyEntity.position);
+                }, "上次看到 [" + getVideoTag(historyEntity.url) + "] " + getVideoPositionText(historyEntity.position)))
+                .show();
     }
 
     private void onButtonItemClick(String url) {
@@ -359,6 +394,30 @@ public class VideoActivity extends BaseActivity {
 
     }
 
+    private void onButtonItemClick(String url, long position) {
+        playWithUrl(url, position);
+        for (MyButton button : myButtons) {
+            if (button.getUrl().equals(url)) {
+                button.setEnabled(false);
+            } else {
+                button.setEnabled(true);
+            }
+        }
+
+    }
+    private String getVideoPositionText(long position) {
+        SimpleDateFormat format = new SimpleDateFormat("HH:mm:ss");
+        format.setTimeZone(TimeZone.getTimeZone("GMT+00:00"));
+        return  format.format(position);
+    }
+    private String getVideoTag(String url) {
+        for (MyButton button : myButtons) {
+            if (button.getUrl().equals(url)) {
+                return button.getText().toString();
+            }
+        }
+        return "";
+    }
     private TextView getTextView(String str) {
         TextView textView = new TextView(this);
         Util.setMargins(textView, 20, 10, 20, 10);
