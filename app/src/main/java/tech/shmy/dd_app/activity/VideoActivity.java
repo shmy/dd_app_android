@@ -378,7 +378,7 @@ public class VideoActivity extends BaseActivity {
                 .offsetY(+videoPlayerView.getHeight() / 3)
                 .asCustom(new CustomAttachPopup(VideoActivity.this, () -> {
                     onButtonItemClick(historyEntity.url, historyEntity.position);
-                }, "上次看到 [" + getVideoTag(historyEntity.url) + "] " + getVideoPositionText(historyEntity.position)))
+                }, "记忆您上次看到:\n[" + getVideoTag(historyEntity.url) + "] " + getVideoPositionText(historyEntity.position)))
                 .show();
     }
 
